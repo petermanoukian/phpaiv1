@@ -3,6 +3,7 @@
 namespace Operations\AI;
 
 use Central\Database;
+use Central\GeminiAccess;
 
 class FilteredSemanticSearchOperation {
     
@@ -13,12 +14,7 @@ class FilteredSemanticSearchOperation {
 
         $db = Database::getConnection();
         
-        $apiKey = getenv('GEMINI_API_KEY') ?: '';
-        if (!$apiKey) {
-            throw new \Exception("Gemini API key is missing.");
-        }
-
-        $client = \Gemini::client($apiKey);
+        $client = GeminiAccess::getClient();
 
         // 1. Generate query embedding
         $response = $client->embeddingModel('gemini-embedding-001')->embedContent($queryText);

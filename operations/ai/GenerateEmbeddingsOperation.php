@@ -4,18 +4,14 @@ namespace Operations\AI;
 
 use Central\Database;
 use Gemini\Client;
+use Central\GeminiAccess;
 
 class GenerateEmbeddingsOperation {
     public static function handle(): void {
         $db = Database::getConnection();
         
         // Initialize Gemini client using the API key from config/env
-        $apiKey = getenv('GEMINI_API_KEY') ?: '';
-        if (!$apiKey) {
-            throw new \Exception("Gemini API key is missing. Check your configuration.");
-        }
-        
-        $client = \Gemini::client($apiKey);
+        $client = GeminiAccess::getClient();
 
         // Fetch all articles that need embeddings
         $stmt = $db->query("SELECT id, content FROM articles");

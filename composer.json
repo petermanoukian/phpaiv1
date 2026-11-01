@@ -8,8 +8,8 @@
             "config/config.php"
         ],
         "psr-4": {
-            "Central\\": "central/",
-            "Operations\\": "operations/"
+            "Central\\": "Central/",
+            "Operations\\": "Operations/"
         }
     },
     "config": {

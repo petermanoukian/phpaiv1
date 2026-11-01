@@ -5,6 +5,7 @@ namespace Operations\AI;
 use Central\Database;
 use Operations\Web\ProcessUploadedDocumentOperation;
 use Operations\Web\ProcessExternalUrlContentOperation;
+use Central\GeminiAccess;
 
 class CreateArticleWithEmbeddingOperation {
     
@@ -40,11 +41,7 @@ class CreateArticleWithEmbeddingOperation {
     private static function executeSave(string $title, string $content, ?array $file, string $language, ?string $url1, ?string $url2, ?string $url3): int {
         $db = Database::getConnection();
         
-        $apiKey = getenv('GEMINI_API_KEY') ?: '';
-        if (!$apiKey) {
-            throw new \Exception("Gemini API key is missing.");
-        }
-
+        $client = GeminiAccess::getClient();
         $filePath = null;
         $textToEmbed = "Title: {$title}\n\nContent:\n{$content}";
 
@@ -67,7 +64,7 @@ class CreateArticleWithEmbeddingOperation {
         $url2Content = null; $url2Embedding = null;
         $url3Content = null; $url3Embedding = null;
 
-        $client = \Gemini::client($apiKey);
+        
 
         if ($cleanUrl1) {
             $url1Content = ProcessExternalUrlContentOperation::handle($cleanUrl1);

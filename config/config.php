@@ -21,4 +21,7 @@ return [
     'ai' => [
         'api_key' => getenv('GEMINI_API_KEY') ?: '',
     ],
+    'api' => [
+        'secret_key' => getenv('API_ACCESS_KEY') ?: 'default_fallback_key',
+    ],
 ];

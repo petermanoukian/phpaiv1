@@ -3,6 +3,7 @@
 namespace Operations\AI;
 
 use Central\Database;
+use Central\GeminiAccess;
 
 class ConversationalSemanticSearchOperation {
     
@@ -13,12 +14,8 @@ class ConversationalSemanticSearchOperation {
         }
 
         $db = Database::getConnection();
-        $apiKey = getenv('GEMINI_API_KEY') ?: '';
-        if (!$apiKey) {
-            throw new \Exception("Gemini API key is missing.");
-        }
-
-        $client = \Gemini::client($apiKey);
+        
+        $client = GeminiAccess::getClient();
 
         // 1. Generate query vector embedding from user query
         $response = $client->embeddingModel('gemini-embedding-001')->embedContent($trimmedQuery);
