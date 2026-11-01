@@ -1,0 +1,22 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# 1. Make search3.php the default entry page if no file is specified
+DirectoryIndex public/search3.php
+
+# 2. Prevent directory listing/browsing across the application
+Options -Indexes
+
+# 3. If someone hits the root domain directly, internally route or redirect them to public/search3.php
+RewriteCond %{REQUEST_URI} ^/?$
+RewriteRule ^(.*)$ public/search3.php [L]
+
+# Block web access to sensitive file types (.sqlite, .sql, .env, .log, .md)
+<FilesMatch "\.(sqlite|sql|env|log|md|json)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+</FilesMatch>

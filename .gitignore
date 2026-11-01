@@ -1,0 +1,19 @@
+# Environment & Configuration
+.env
+
+# Temporary or Test Files
+test_analyze.php
+Mine
+
+# Uploads Directories (keeping folders ignored while allowing structure if needed)
+public/uploads/files/
+public/uploads/file/
+
+# Database files & local sqlite stores
+*.sqlite
+*.sqlite-journal
+
+# Dependencies & OS junk
+vendor/
+.DS_Store
+Thumbs.db
